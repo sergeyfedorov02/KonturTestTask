@@ -1,5 +1,8 @@
 ﻿using CommandLine;
 using KonturTestTask.Exceptions;
+using KonturTestTask.Helpers;
+using System.IO;
+using System.Xml;
 
 
 namespace KonturTestTask
@@ -71,6 +74,9 @@ namespace KonturTestTask
                     throw new CustomException($"Входной XML файл не найден: {inputXmlPath}");
                 }
 
+                // создание XmlReader для inputXmlPath
+                using var inputXmlReader = XmlReader.Create(inputXmlPath);
+
                 // Получаем путь к корневой папке проекта/папка для результатов
                 var projectRoot = AppContext.BaseDirectory;
                 var outputXmlPath = Path.Combine(
@@ -84,8 +90,11 @@ namespace KonturTestTask
                 // Создаем выходную папку, если ее нет
                 Directory.CreateDirectory(Path.GetDirectoryName(outputXmlPath));
 
+                // создание XmlWriter для outputXmlPath
+                using var outputXmlWriter = XmlWriter.Create(outputXmlPath);
+
                 // Выполнение XSLT-преобразования
-                XmlHelper.TransformXml(inputXmlPath, outputXmlPath);
+                XmlHelper.TransformXml(inputXmlReader, outputXmlWriter);
                 
                 ReportOk(outputXmlPath);
             }

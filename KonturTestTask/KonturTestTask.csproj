@@ -19,6 +19,7 @@
   <ItemGroup>
     <Folder Include="Input\" />
     <Folder Include="XmlConfig\Schemas\" />
+    <Folder Include="XmlConfig\FormatResult\" />
   </ItemGroup>
 
 </Project>

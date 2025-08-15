@@ -3,13 +3,14 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Xml;
 using System.Xml.Xsl;
 
-namespace KonturTestTask
+namespace KonturTestTask.Helpers
 {
     internal class XmlHelper
     {
-        public static void TransformXml(string inputXmlPath, string outputFilePath)
+        public static void TransformXml(XmlReader inputXmlReader, XmlWriter outputXmlWriter)
         {
             // создание и настройка XSLT преобразователя
             var xslt = new XslCompiledTransform();
@@ -19,7 +20,7 @@ namespace KonturTestTask
             xslt.Load(xsltReader);
 
             // выполнение преобразования
-            xslt.Transform(inputXmlPath, outputFilePath);           
+            xslt.Transform(inputXmlReader, outputXmlWriter);           
         }
     }
 }
