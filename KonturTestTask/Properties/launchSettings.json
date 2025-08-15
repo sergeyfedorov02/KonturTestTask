@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "KonturTestTask": {
+      "commandName": "Project",
+      "commandLineArgs": "-i D:\\VisualStudioProjects\\KonturTestTask\\KonturTestTask\\Input\\Data2.xml"
+    }
+  }
+}
