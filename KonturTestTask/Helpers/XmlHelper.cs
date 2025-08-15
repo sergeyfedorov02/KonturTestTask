@@ -8,7 +8,7 @@ using System.Xml.Xsl;
 
 namespace KonturTestTask.Helpers
 {
-    internal class XmlHelper
+    internal static class XmlHelper
     {
         public static void TransformXml(XmlReader inputXmlReader, XmlWriter outputXmlWriter)
         {

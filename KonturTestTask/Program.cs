@@ -10,15 +10,6 @@ namespace KonturTestTask
     internal class Program
     {
 
-        /// <summary>
-        /// Аргументы командной строки
-        /// </summary>
-        public class Options
-        {
-            [Option('i', "input", Required = true, HelpText = "Полный путь к входному XML файлу")]
-            public string InputFilePath { get; set; }
-        }
-
         static void Main(string[] args)
         {
             // Парсинг аргументов командной строки
@@ -35,29 +26,6 @@ namespace KonturTestTask
             }
             // запустим преобразование
             RunTransform(inputXmlPath);
-        }
-
-        private static void ReportError(string errorMessage = null)
-        {
-            Console.ForegroundColor = ConsoleColor.Red;
-            if (!string.IsNullOrEmpty(errorMessage))
-            {
-                Console.WriteLine("Ошибка:");
-                Console.WriteLine(errorMessage);
-            }
-            else
-            {
-                Console.WriteLine("Возникла непредвиденная ошибка");
-            }
-            Console.ResetColor();
-        }
-
-        private static void ReportOk(string outputXmlPath)
-        {
-            Console.ForegroundColor = ConsoleColor.DarkGreen;
-            Console.WriteLine($"{Environment.NewLine}Преобразование прошло успешно, результат сохранен по следующему пути:");
-            Console.ResetColor();
-            Console.WriteLine($"{outputXmlPath}");
         }
 
         /// <summary>
@@ -96,15 +64,15 @@ namespace KonturTestTask
                 // Выполнение XSLT-преобразования
                 XmlHelper.TransformXml(inputXmlReader, outputXmlWriter);
                 
-                ReportOk(outputXmlPath);
+                ReportHelper.ReportOk(outputXmlPath);
             }
             catch(CustomException ex)
             {
-                ReportError(ex.Message);
+                ReportHelper.ReportError(ex.Message);
             }
             catch (Exception)
             {
-                ReportError();
+                ReportHelper.ReportError();
             }
         }
     }
