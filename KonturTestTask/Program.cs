@@ -2,6 +2,7 @@
 using KonturTestTask.Exceptions;
 using KonturTestTask.Helpers;
 using System.Xml;
+using System.Xml.Linq;
 
 
 namespace KonturTestTask
@@ -66,9 +67,15 @@ namespace KonturTestTask
                         XmlHelper.TransformXml(inputXmlReader, outputXmlWriter);
                     }
                 }
-                
+
                 //обновление Employees.xml и на основе inputXmlPath обновить его (изначальный inputData.xml)
-                XmlHelper.UpdateEmployeesAndInputXml(inputXmlPath, outputXmlPath);
+                var employeesDocument = XDocument.Load(outputXmlPath);
+                var inputDataDocument = XDocument.Load(inputXmlPath);
+
+                XmlHelper.UpdateEmployeesAndInputXml(inputDataDocument, employeesDocument);
+
+                employeesDocument.Save(outputXmlPath);
+                inputDataDocument.Save(inputXmlPath);
 
                 // TODO
                 // создание HTML отчета
