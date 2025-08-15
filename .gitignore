@@ -361,3 +361,6 @@ MigrationBackup/
 
 # Fody - auto-generated XML schema
 FodyWeavers.xsd
+/KonturTestTask/Output/Employees.xml
+/KonturTestTask/XmlConfig/Schemas/input_schema.xsd
+/KonturTestTask/XmlConfig/Schemas/schema.xsd
