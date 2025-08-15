@@ -1,7 +1,6 @@
 ﻿using CommandLine;
 using KonturTestTask.Exceptions;
 using KonturTestTask.Helpers;
-using System.IO;
 using System.Xml;
 
 
@@ -42,8 +41,7 @@ namespace KonturTestTask
                     throw new CustomException($"Входной XML файл не найден: {inputXmlPath}");
                 }
 
-                // создание XmlReader для inputXmlPath
-                using var inputXmlReader = XmlReader.Create(inputXmlPath);
+                // TODO - добавить валидацию XSD
 
                 // Получаем путь к корневой папке проекта/папка для результатов
                 var projectRoot = AppContext.BaseDirectory;
@@ -58,12 +56,23 @@ namespace KonturTestTask
                 // Создаем выходную папку, если ее нет
                 Directory.CreateDirectory(Path.GetDirectoryName(outputXmlPath));
 
-                // создание XmlWriter для outputXmlPath
-                using var outputXmlWriter = XmlWriter.Create(outputXmlPath);
-
-                // Выполнение XSLT-преобразования
-                XmlHelper.TransformXml(inputXmlReader, outputXmlWriter);
+                // создание XmlReader для inputXmlPath
+                using (var inputXmlReader = XmlReader.Create(inputXmlPath))
+                {
+                    // создание XmlWriter для outputXmlPath
+                    using (var outputXmlWriter = XmlWriter.Create(outputXmlPath))
+                    {
+                        // Выполнение XSLT-преобразования
+                        XmlHelper.TransformXml(inputXmlReader, outputXmlWriter);
+                    }
+                }
                 
+                //обновление Employees.xml и на основе inputXmlPath обновить его (изначальный inputData.xml)
+                XmlHelper.UpdateEmployeesAndInputXml(inputXmlPath, outputXmlPath);
+
+                // TODO
+                // создание HTML отчета
+
                 ReportHelper.ReportOk(outputXmlPath);
             }
             catch(CustomException ex)
