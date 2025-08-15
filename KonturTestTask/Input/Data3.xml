@@ -1,0 +1,17 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Pay totalSalary="18033.76742">
+  <january>
+    <item name="Lena" surname="Ivanova" amount="2001" mount="january" />
+    <item name="Masha" surname="Ivanova" amount="2000.0" mount="january" />
+  </january>
+  <february>
+    <item name="Lena" surname="Ivanova" amount="3001,10" mount="january" />
+    <item name="Masha" surname="Ivanova" amount="3040" mount="january" />
+    <item name="Lena" surname="Ivanova" amount="5050" mount="january" />
+  </february>
+  <march>
+    <item name="Lena" surname="Ivanova" amount="1001.1" mount="march" />
+    <item name="Masha" surname="Ivanova" amount="1200" mount="march" />
+    <item name="Vasua" surname="Vasiliev" amount="740,56742" mount="march" />
+  </march>
+</Pay>

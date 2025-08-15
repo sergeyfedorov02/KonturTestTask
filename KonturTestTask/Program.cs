@@ -1,5 +1,6 @@
 ﻿using CommandLine;
 using KonturTestTask.Exceptions;
+using KonturTestTask.Extensions;
 using KonturTestTask.Helpers;
 using System.Xml;
 using System.Xml.Linq;
@@ -77,8 +78,17 @@ namespace KonturTestTask
                 employeesDocument.Save(outputXmlPath);
                 inputDataDocument.Save(inputXmlPath);
 
-                // TODO
                 // создание HTML отчета
+                var hrmlFilePath = Path.Combine(
+                    projectRoot,
+                    "..", "..", "..", // Поднимаемся из bin/Debug/netX.0
+                    "Output",
+                    "Employees.html"
+                );
+                hrmlFilePath = Path.GetFullPath(hrmlFilePath);
+                var htmlDoc = employeesDocument.CreateResultHtml();
+
+                htmlDoc.Save(hrmlFilePath);
 
                 ReportHelper.ReportOk(outputXmlPath);
             }

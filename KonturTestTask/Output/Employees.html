@@ -1,0 +1,80 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html >
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Отчет по сотрудникам</title>
+    <style>table {
+                                border-collapse: collapse;
+                                width: 100%;
+                                margin-top: 20px;
+                              }
+                              th, td {
+                                border: 1px solid #ddd;
+                                padding: 8px;
+                                text-align: left;
+                              }
+                              th {
+                                background-color: #f2f2f2;
+                                position: sticky;
+                                top: 0;
+                              }
+                              .total-row {
+                                font-weight: bold;
+                                background-color: #f9f9f9;
+                              }</style>
+  </head>
+  <body>
+    <h1>Отчет по сотрудникам</h1>
+    <table>
+      <thead>
+        <tr>
+          <th rowspan="2">Имя</th>
+          <th rowspan="2">Фамилия</th>
+          <th colspan="2">Выплаты по месяцам</th>
+        </tr>
+        <tr>
+          <th>Месяц</th>
+          <th>Сумма</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td rowspan="3">Lena</td>
+          <td rowspan="3">Ivanova</td>
+          <td>January</td>
+          <td>2001</td>
+          <tr>
+            <td>February</td>
+            <td>8051.10</td>
+          </tr>
+          <tr>
+            <td>March</td>
+            <td>1001.1</td>
+          </tr>
+        </tr>
+        <tr>
+          <td rowspan="3">Masha</td>
+          <td rowspan="3">Ivanova</td>
+          <td>January</td>
+          <td>2000.0</td>
+          <tr>
+            <td>February</td>
+            <td>3040</td>
+          </tr>
+          <tr>
+            <td>March</td>
+            <td>1200</td>
+          </tr>
+        </tr>
+        <tr>
+          <td rowspan="1">Vasua</td>
+          <td rowspan="1">Vasiliev</td>
+          <td>March</td>
+          <td>740.56742</td>
+        </tr>
+      </tbody>
+    </table>
+    <div style="margin-top: 20px; font-style: italic;">Отчет сформирован 2025-08-15 22:52</div>
+  </body>
+</html>
