@@ -13,6 +13,31 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Элементы решен
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KonturTests", "KonturTests\KonturTests.csproj", "{0EE72F32-7261-56D5-B582-5218096A80BF}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Images", "Images", "{36D591C7-65C7-A0D1-1CBC-10CDE441BDC8}"
+	ProjectSection(SolutionItems) = preProject
+		Images\data1_after.PNG = Images\data1_after.PNG
+		Images\data1_before.PNG = Images\data1_before.PNG
+		Images\data1_without_output.PNG = Images\data1_without_output.PNG
+		Images\data1_without_result_html.PNG = Images\data1_without_result_html.PNG
+		Images\data1_without_result_xml.PNG = Images\data1_without_result_xml.PNG
+		Images\data2_after.PNG = Images\data2_after.PNG
+		Images\data2_before.PNG = Images\data2_before.PNG
+		Images\data2_without_args.PNG = Images\data2_without_args.PNG
+		Images\data2_without_result_html.PNG = Images\data2_without_result_html.PNG
+		Images\data2_without_result_xml.PNG = Images\data2_without_result_xml.PNG
+		Images\data3_after.PNG = Images\data3_after.PNG
+		Images\data3_before.PNG = Images\data3_before.PNG
+		Images\data3_with_args.PNG = Images\data3_with_args.PNG
+		Images\data3_with_result_html.PNG = Images\data3_with_result_html.PNG
+		Images\data3_with_result_xml.PNG = Images\data3_with_result_xml.PNG
+		Images\invalid_input_file.PNG = Images\invalid_input_file.PNG
+		Images\invalid_input_struct.PNG = Images\invalid_input_struct.PNG
+		Images\invalid_output_directory.PNG = Images\invalid_output_directory.PNG
+		Images\result_without_output.PNG = Images\result_without_output.PNG
+		Images\result_with_output.PNG = Images\result_with_output.PNG
+		Images\without_args.PNG = Images\without_args.PNG
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -30,6 +55,9 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{36D591C7-65C7-A0D1-1CBC-10CDE441BDC8} = {754FC069-D67B-A9D7-50A1-8D1CA196D8F1}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {3D2B80AE-38F9-42A3-92BB-90257FA6C328}
