@@ -1,0 +1,76 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema">
+	<xs:element name="Pay">
+		<xs:complexType>
+			<xs:choice>
+				<!-- Pay может состоять из дочерних элементов с типом item1 -->
+				<xs:sequence>
+					<xs:element name="item" minOccurs="0" maxOccurs="unbounded" type="item1"/>
+				</xs:sequence>
+
+				<!-- или же из дочерних элементов с указанием месяца -->
+				<xs:sequence>
+					<xs:choice minOccurs="0" maxOccurs="unbounded">
+						<xs:element name="january" type="itemsInMonth"/>
+						<xs:element name="february" type="itemsInMonth"/>
+						<xs:element name="march" type="itemsInMonth"/>
+						<xs:element name="april" type="itemsInMonth"/>
+						<xs:element name="may" type="itemsInMonth"/>
+						<xs:element name="june" type="itemsInMonth"/>
+						<xs:element name="july" type="itemsInMonth"/>
+						<xs:element name="august" type="itemsInMonth"/>
+						<xs:element name="september" type="itemsInMonth"/>
+						<xs:element name="october" type="itemsInMonth"/>
+						<xs:element name="november" type="itemsInMonth"/>
+						<xs:element name="december" type="itemsInMonth"/>
+					</xs:choice>
+				</xs:sequence>
+			</xs:choice>
+
+			<!-- У элемента Pay может быть опционально указан атрибут total-salary (появляется после преобразования) -->
+			<xs:attribute name="total-salary" type="xs:string" use="optional" />
+		</xs:complexType>
+	</xs:element>
+
+	<!-- Объявление типа <month> -->
+	<xs:simpleType name="month">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="january" />
+			<xs:enumeration value="february" />
+			<xs:enumeration value="march" />
+			<xs:enumeration value="april" />
+			<xs:enumeration value="may" />
+			<xs:enumeration value="june" />
+			<xs:enumeration value="july" />
+			<xs:enumeration value="august" />
+			<xs:enumeration value="september" />
+			<xs:enumeration value="october" />
+			<xs:enumeration value="november" />
+			<xs:enumeration value="december" />
+		</xs:restriction>
+	</xs:simpleType>
+
+	<!-- Объявление типа <item1> -->
+	<xs:complexType name="item1">
+		<xs:attribute name="name" type="xs:string" use="required"/>
+		<xs:attribute name="surname" type="xs:string" use="required"/>
+		<xs:attribute name="amount" type="xs:string" use="required"/>
+		<xs:attribute name="mount" type="month" use="required"/>
+	</xs:complexType>
+
+	<!-- Объявление типа <item2> для файлов со структурой Data2 (здесь опционально указание параметра mount) -->
+	<xs:complexType name="item2">
+		<xs:attribute name="name" type="xs:string" use="required"/>
+		<xs:attribute name="surname" type="xs:string" use="required"/>
+		<xs:attribute name="amount" type="xs:string" use="required"/>
+		<xs:attribute name="mount" type="month" use="optional"/>
+	</xs:complexType>
+
+	<!-- Объявление типа <itemsInMonth> -->
+	<xs:complexType name="itemsInMonth">
+		<xs:sequence>
+			<xs:element name="item" minOccurs="0" maxOccurs="unbounded" type="item2"/>
+		</xs:sequence>
+	</xs:complexType>
+</xs:schema>
+	

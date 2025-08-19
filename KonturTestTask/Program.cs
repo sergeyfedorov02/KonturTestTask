@@ -4,6 +4,7 @@ using KonturTestTask.Extensions;
 using KonturTestTask.Helpers;
 using System.Xml;
 using System.Xml.Linq;
+using System.Xml.Schema;
 
 
 namespace KonturTestTask
@@ -16,24 +17,28 @@ namespace KonturTestTask
             // Парсинг аргументов командной строки
             var parserResult = Parser.Default.ParseArguments<Options>(args);
 
-            string inputXmlPath = parserResult.MapResult(
-                parsedOptions => parsedOptions.InputFilePath, // Если аргументы валидны
-                errors => null  // Если есть ошибки
-            );
-
-            if (string.IsNullOrEmpty(inputXmlPath))
+            parserResult.WithParsed(options =>
             {
-                return;
-            }
-            // запустим преобразование
-            RunTransform(inputXmlPath);
+                if (string.IsNullOrEmpty(options.InputFilePath))
+                {
+                    return;
+                }
+
+                // запустим преобразование
+                RunTransform(options.InputFilePath, options.OutputFilePath);
+            });
+
+            parserResult.WithNotParsed(errors =>
+            {
+                ReportHelper.ReportError("Ошибка в параметрах командной строки");
+            });
         }
 
         /// <summary>
         /// Запуск преобразования
         /// </summary>
         /// <param name="inputXmlPath"></param>
-        public static void RunTransform(string inputXmlPath)
+        public static void RunTransform(string inputXmlPath, string outputDirectory)
         {
             try
             {
@@ -43,35 +48,27 @@ namespace KonturTestTask
                     throw new CustomException($"Входной XML файл не найден: {inputXmlPath}");
                 }
 
-                // TODO - добавить валидацию XSD
+                // Определяем выходную директорию
+                var outputDir = DirectoryHelper.GetValidOutputDirectory(outputDirectory);
 
-                // Получаем путь к корневой папке проекта/папка для результатов
-                var projectRoot = AppContext.BaseDirectory;
-                var outputXmlPath = Path.Combine(
-                    projectRoot,
-                    "..", "..", "..", // Поднимаемся из bin/Debug/netX.0
-                    "Output",
-                    "Employees.xml"
-                );
-                outputXmlPath = Path.GetFullPath(outputXmlPath);
+                // Валидация при помощи XSD
+                var inputDataDocument = XmlHelper.LoadDocumentAndValidate(inputXmlPath);
 
-                // Создаем выходную папку, если ее нет
-                Directory.CreateDirectory(Path.GetDirectoryName(outputXmlPath));
+                // Сформируем путь для выходных файлов
+                var outputXmlPath = Path.Combine(outputDir, "Employees.xml");
+                var htmlFilePath = Path.Combine(outputDir, "Employees.html");
 
                 // создание XmlReader для inputXmlPath
                 using (var inputXmlReader = XmlReader.Create(inputXmlPath))
                 {
                     // создание XmlWriter для outputXmlPath
-                    using (var outputXmlWriter = XmlWriter.Create(outputXmlPath))
-                    {
-                        // Выполнение XSLT-преобразования
-                        XmlHelper.TransformXml(inputXmlReader, outputXmlWriter);
-                    }
+                    using var outputXmlWriter = XmlWriter.Create(outputXmlPath);
+                    // Выполнение XSLT-преобразования
+                    XmlHelper.TransformXml(inputXmlReader, outputXmlWriter);
                 }
 
                 //обновление Employees.xml и на основе inputXmlPath обновить его (изначальный inputData.xml)
                 var employeesDocument = XDocument.Load(outputXmlPath);
-                var inputDataDocument = XDocument.Load(inputXmlPath);
 
                 XmlHelper.UpdateEmployeesAndInputXml(inputDataDocument, employeesDocument);
 
@@ -79,16 +76,9 @@ namespace KonturTestTask
                 inputDataDocument.Save(inputXmlPath);
 
                 // создание HTML отчета
-                var hrmlFilePath = Path.Combine(
-                    projectRoot,
-                    "..", "..", "..", // Поднимаемся из bin/Debug/netX.0
-                    "Output",
-                    "Employees.html"
-                );
-                hrmlFilePath = Path.GetFullPath(hrmlFilePath);
                 var htmlDoc = employeesDocument.CreateResultHtml();
 
-                htmlDoc.Save(hrmlFilePath);
+                htmlDoc.Save(htmlFilePath);
 
                 ReportHelper.ReportOk(outputXmlPath);
             }

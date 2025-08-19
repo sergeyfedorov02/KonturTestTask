@@ -1,6 +1,7 @@
 ﻿using KonturTestTask.Exceptions;
 using System.Reflection;
 using System.Xml;
+using System.Xml.Schema;
 
 namespace KonturTestTask.Helpers
 {
@@ -9,7 +10,7 @@ namespace KonturTestTask.Helpers
         private const string XmlConfigNamespace = "KonturTestTask.XmlConfig";
 
         private const string TransformsNamespace = $"{XmlConfigNamespace}.Transforms";
-        private const string SchemasNamespace = $"{XmlConfigNamespace}.Chemas";
+        private const string SchemasNamespace = $"{XmlConfigNamespace}.Schemas";
 
         public static Stream GetTransformStream()
         {
@@ -18,7 +19,7 @@ namespace KonturTestTask.Helpers
 
         public static Stream GetSchemaStream()
         {
-            return GetEmbeddedResourceStream($"{SchemasNamespace}.schema.xsd");
+            return GetEmbeddedResourceStream($"{SchemasNamespace}.schema_pay.xsd");
         }
 
         private static Stream GetEmbeddedResourceStream(string fullResourceName)
@@ -35,10 +36,16 @@ namespace KonturTestTask.Helpers
             return XmlReader.Create(stream);
         }
 
-        public static XmlReader ReadSchemaContent()
+        public static XmlSchemaSet LoadSchemaSetFromResources()
         {
-            var stream = GetSchemaStream();
-            return XmlReader.Create(stream);
+            using var stream = GetSchemaStream();
+            using var xmlReader = XmlReader.Create(stream);
+
+            var schemas = new XmlSchemaSet();
+            var schema = XmlSchema.Read(xmlReader, null);
+
+            schemas.Add(schema);
+            return schemas;
         }
     }
 }

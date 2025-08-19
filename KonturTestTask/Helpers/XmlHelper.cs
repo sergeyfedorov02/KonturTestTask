@@ -1,6 +1,9 @@
-﻿using KonturTestTask.Extensions;
+﻿using KonturTestTask.Exceptions;
+using KonturTestTask.Extensions;
+using System.Reflection;
 using System.Xml;
 using System.Xml.Linq;
+using System.Xml.Schema;
 using System.Xml.Xsl;
 
 namespace KonturTestTask.Helpers
@@ -37,6 +40,26 @@ namespace KonturTestTask.Helpers
 
             // обновление inputData.xml
             inputDataDocument.UpdateInputData(totalSalary);
+        }
+
+        /// <summary>
+        /// Загрузка и валидация документа (InputData.xml)
+        /// </summary>
+        /// <param name="inputXmlPath"></param>
+        /// <returns></returns>
+        /// <exception cref="CustomException"></exception>
+        public static XDocument LoadDocumentAndValidate(string inputXmlPath)
+        {
+            // загрузка схемы
+            var schemas = ResourceHelper.LoadSchemaSetFromResources();
+
+            // загрузка документа
+            var doc = XDocument.Load(inputXmlPath);
+
+            // валидация документа 
+            doc.ValidateDocument(schemas);
+
+            return doc;
         }
     }
 }

@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Pay>
+	<january>
+		<!-- Пропущен месяц -> не является ошибкой -->
+		<item name="Lena" surname="Ivanova" amount="2001"/>
+	</january>
+</Pay>

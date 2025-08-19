@@ -8,6 +8,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+	  <InternalsVisibleTo Include="KonturTests" />
+  </ItemGroup>
+
+  <ItemGroup>
     <EmbeddedResource Include="XmlConfig\Transforms\transform_without_group.xslt" />
     <EmbeddedResource Include="XmlConfig\Transforms\transform_with_group.xslt" />
   </ItemGroup>
@@ -17,7 +21,19 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="XmlConfig\Schemas\" />
+    <EmbeddedResource Include="XmlConfig\Schemas\schema_pay.xsd" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="Input\Data1.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Input\Data2.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Input\Data3.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
 
 </Project>

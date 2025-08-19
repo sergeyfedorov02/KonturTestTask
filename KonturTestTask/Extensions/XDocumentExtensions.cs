@@ -1,5 +1,7 @@
-﻿using System.Globalization;
+﻿using KonturTestTask.Exceptions;
+using System.Globalization;
 using System.Xml.Linq;
+using System.Xml.Schema;
 
 namespace KonturTestTask.Extensions
 {
@@ -69,7 +71,7 @@ namespace KonturTestTask.Extensions
             XElement payElement = inputDataDocument.Root;
 
             // Добавляем/обновляем атрибут totalSalary
-            payElement.SetAttributeValue("totalSalary", totalSalary.ToString(CultureInfo.InvariantCulture));
+            payElement.SetAttributeValue("total-salary", totalSalary.ToString(CultureInfo.InvariantCulture));
         }
 
         /// <summary>
@@ -188,6 +190,21 @@ namespace KonturTestTask.Extensions
             );
 
             return htmlDoc;
+        }
+
+        /// <summary>
+        /// Валидация документа
+        /// </summary>
+        /// <param name="document"></param>
+        /// <param name="schemas"></param>
+        /// <exception cref="CustomException"></exception>
+        public static void ValidateDocument(this XDocument document, XmlSchemaSet schemas)
+        {
+            // валидация 
+            document.Validate(schemas, (sender, args) =>
+            {
+                throw new CustomException($"Ошибка валидации:{Environment.NewLine}{args.Message}");
+            });
         }
     }
 }

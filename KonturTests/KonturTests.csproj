@@ -1,0 +1,48 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net9.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>disable</Nullable>
+    <IsPackable>false</IsPackable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="TestData\Data1.xml" />
+    <None Remove="TestData\Data2.xml" />
+    <None Remove="TestData\Data3.xml" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Include="TestData\Data1.xml" />
+    <EmbeddedResource Include="TestData\Data1ErrorEmptyAmount.xml" />
+    <EmbeddedResource Include="TestData\Data1ErrorEmptySurname.xml" />
+    <EmbeddedResource Include="TestData\Data1ErrorEmptyName.xml" />
+    <EmbeddedResource Include="TestData\Data2ErrorEmptyAmount.xml" />
+    <EmbeddedResource Include="TestData\Data2EmptyMount.xml" />
+    <EmbeddedResource Include="TestData\Data2ErrorEmptySurname.xml" />
+    <EmbeddedResource Include="TestData\Data2ErrorEmptyName.xml" />
+    <EmbeddedResource Include="TestData\Data2ErrorInvalidMount.xml" />
+    <EmbeddedResource Include="TestData\Data2.xml" />
+    <EmbeddedResource Include="TestData\Data1ErrorInvalidMount.xml" />
+    <EmbeddedResource Include="TestData\Data1ErrorEmptyMount.xml" />
+    <EmbeddedResource Include="TestData\Data3.xml" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="coverlet.collector" Version="6.0.2" />
+    <PackageReference Include="FluentAssertions" Version="8.6.0" />
+    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.12.0" />
+    <PackageReference Include="xunit" Version="2.9.2" />
+    <PackageReference Include="xunit.runner.visualstudio" Version="2.8.2" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\KonturTestTask\KonturTestTask.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Using Include="Xunit" />
+  </ItemGroup>
+
+</Project>

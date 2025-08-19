@@ -2,7 +2,7 @@
   "profiles": {
     "KonturTestTask": {
       "commandName": "Project",
-      "commandLineArgs": "-i D:\\VisualStudioProjects\\KonturTestTask\\KonturTestTask\\Input\\Data3.xml"
+      "commandLineArgs": "-i Input\\Data3.xml -o D:\\Output "
     }
   }
 }

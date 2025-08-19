@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Pay>
+	<january>
+		<!-- Пропущено имя -->
+		<item surname="Ivanova" amount="2001" mount="january"/>
+	</january>
+</Pay>

@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Pay>
+	<!-- Неверное имя месяца -->
+	<january1>
+		<item name="Lena" surname="Ivanova" amount="2001" mount="february"/>
+	</january1>
+</Pay>
